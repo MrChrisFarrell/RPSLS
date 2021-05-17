@@ -18,6 +18,7 @@ class Game:
         self.players_select()
         while self.player1.points < self.win and self.player2.points < self.win:
             self.player1.select()
+            print("\n\n\n\n\n\n\n\n\n\n")
             self.player2.select()
             self.throw()
         if self.player1.points == self.win:
