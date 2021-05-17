@@ -8,5 +8,5 @@ class ComputerPlayer(Player):
         super().__init__("Kevin Costner")
 
     def select(self):
-        choice_index = random.randint(0, len(self.choices))
+        choice_index = random.randint(0, len(self.choices) - 1)
         self.choice = self.choices[choice_index]

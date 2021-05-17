@@ -7,6 +7,7 @@ class Game:
         self.player1 = Player("")
         self.player2 = Player("")
         self.rounds = 3
+        self.round = 1
         self.win = 2
         self.players = 1
         self.welcome_message = f"\nWelcome to Rock, Paper, Scissors, Lizard, Spock"
@@ -15,13 +16,14 @@ class Game:
         self.display_centered(self.welcome_message, 50)
         self.display_centered(f"This game will be best of {self.rounds}", 47)
         self.players_select()
-        self.player1.select()
-        self.player2.select()
-        self.throw()
-        #player selects choice
-        #compare choices
-        #display winner/draw of round
-        #loop until set win number
+        while self.player1.points < self.win and self.player2.points < self.win:
+            self.player1.select()
+            self.player2.select()
+            self.throw()
+        if self.player1.points == self.win:
+            print(f"{self.player1.name} won!!! Sorry {self.player2.name}")
+        else:
+            print(f"{self.player2.name} won!!! Sorry {self.player1.name}")
         #display winner
         #play again?
         pass
@@ -43,7 +45,7 @@ class Game:
         print(message.center(display_width))
 
     def throw(self):
-        print(f"{self.player1.name} throws {self.player1.choice.name}. {self.player2.name} throws {self.player2.choice.name}")
+        print(f"\nRound {self.round}\n{self.player1.name} throws {self.player1.choice.name}. {self.player2.name} throws {self.player2.choice.name}")
         self.player1.choice.compare(self.player2.choice)
         self.player2.choice.compare(self.player1.choice)
         if self.player1.choice.win:
@@ -56,3 +58,4 @@ class Game:
             print("The result is a: Draw! No points!")
         self.player1.choice.win = False
         self.player2.choice.win = False
+        self.round += 1
