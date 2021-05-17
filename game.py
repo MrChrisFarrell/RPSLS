@@ -25,13 +25,17 @@ class Game:
             print(f"{self.player1.name} won!!! Sorry {self.player2.name}")
         else:
             print(f"{self.player2.name} won!!! Sorry {self.player1.name}")
-        #display winner
-        #play again?
+        play_again = input("Play again? 'Yes' or 'No'")
+        if play_again == "Yes":
+            self.round = 1
+            self.run_game()
+        else:
+            print("Thanks for playing!")
         pass
 
     def players_select(self):
         self.players = int(input("\nEnter the number of players (max 2):"))
-        while self.players <1 or self.players > 2:
+        while self.players < 1 or self.players > 2:
             print("Invalid Input")
             self.players = int(input("Enter the number of players (max 2):"))
         if self.players == 2:
