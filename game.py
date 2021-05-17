@@ -7,6 +7,7 @@ class Game:
         self.player1 = Player("")
         self.player2 = Player("")
         self.rounds = 3
+        self.win = 2
         self.players = 1
         self.welcome_message = f"\nWelcome to Rock, Paper, Scissors, Lizard, Spock"
 
@@ -14,8 +15,9 @@ class Game:
         self.display_centered(self.welcome_message, 50)
         self.display_centered(f"This game will be best of {self.rounds}", 47)
         self.players_select()
-
-        #Have player(s) enter name(s)
+        self.player1.select()
+        self.player2.select()
+        self.throw()
         #player selects choice
         #compare choices
         #display winner/draw of round
@@ -39,3 +41,18 @@ class Game:
 
     def display_centered(self, message, display_width):
         print(message.center(display_width))
+
+    def throw(self):
+        print(f"{self.player1.name} throws {self.player1.choice.name}. {self.player2.name} throws {self.player2.choice.name}")
+        self.player1.choice.compare(self.player2.choice)
+        self.player2.choice.compare(self.player1.choice)
+        if self.player1.choice.win:
+            self.player1.points += 1
+            print(f"{self.player1.name} wins! Awarded 1 point.\nTotal points: {self.player1.points}")
+        elif self.player2.choice.win:
+            self.player2.points += 1
+            print(f"{self.player2.name} wins! Awarded 1 point.\nTotal points: {self.player2.points}")
+        else:
+            print("The result is a: Draw! No points!")
+        self.player1.choice.win = False
+        self.player2.choice.win = False
