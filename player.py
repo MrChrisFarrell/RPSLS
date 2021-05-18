@@ -14,7 +14,16 @@ class Player:
         for choice in self.choices:
             print(f"Enter {choice_index} for {choice.name}")
             choice_index += 1
-        choice_index = int(input(f"What's your choice?"))
+        choice_index = self.restrict_input_int(f"What's your choice?")
+        while choice_index < 0 or choice_index >= len(self.choices) - 1:
+            print("Invalid Input! Please try again!")
+            choice_index = self.restrict_input_int(f"What's your choice?")
         self.choice = self.choices[choice_index]
 
-
+    def restrict_input_int(self, prompt):
+        while True:
+            try:
+                result = int(input(prompt))
+                return result
+            except ValueError as e:
+                print("Invalid input! Enter a number")

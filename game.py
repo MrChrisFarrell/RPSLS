@@ -25,19 +25,14 @@ class Game:
             print(f"{self.player1.name} won!!! Sorry {self.player2.name}")
         else:
             print(f"{self.player2.name} won!!! Sorry {self.player1.name}")
-        play_again = input("Play again? 'Yes' or 'No'")
-        if play_again == "Yes":
-            self.round = 1
-            self.run_game()
-        else:
-            print("Thanks for playing!")
-        pass
+        self.play_again()
+        print("Thanks for playing!")
 
     def players_select(self):
-        self.players = int(input("\nEnter the number of players (max 2):"))
+        self.players = self.restrict_input_int("\nEnter the number of players (max 2):")
         while self.players < 1 or self.players > 2:
             print("Invalid Input")
-            self.players = int(input("Enter the number of players (max 2):"))
+            self.players = self.restrict_input_int("\nEnter the number of players (max 2):")
         if self.players == 2:
             self.player1.name = input("Enter Player-One name:")
             self.player2.name = input("Enter Player-Two name:")
@@ -55,12 +50,31 @@ class Game:
         self.player2.choice.compare(self.player1.choice)
         if self.player1.choice.win:
             self.player1.points += 1
-            print(f"{self.player1.name} wins! Awarded 1 point.\nTotal points: {self.player1.points}")
+            print(f"{self.player1.name} wins Round {self.round}! Awarded 1 point.\nTotal points: {self.player1.points}")
         elif self.player2.choice.win:
             self.player2.points += 1
-            print(f"{self.player2.name} wins! Awarded 1 point.\nTotal points: {self.player2.points}")
+            print(f"{self.player2.name} wins Round {self.round}! Awarded 1 point.\nTotal points: {self.player2.points}")
         else:
             print("The result is a: Draw! No points!")
         self.player1.choice.win = False
         self.player2.choice.win = False
         self.round += 1
+
+    def restrict_input_int(self, prompt):
+        while True:
+            try:
+                result = int(input(prompt))
+                return result
+            except ValueError as e:
+                print("Invalid input! Enter a number")
+
+    def play_again(self):
+        play_again = input("Play again? 'Yes' or anything else to quit").lower()
+        if play_again == "yes":
+            self.reset_game()
+
+    def reset_game(self):
+        self.round = 1
+        self.player1.points = 0
+        self.player2.points = 0
+        self.run_game()
