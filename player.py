@@ -15,7 +15,7 @@ class Player:
             print(f"Enter {choice_index} for {choice.name}")
             choice_index += 1
         choice_index = self.restrict_input_int(f"What's your choice?")
-        while choice_index < 0 or choice_index >= len(self.choices) - 1:
+        while choice_index < 0 or choice_index >= len(self.choices):
             print("Invalid Input! Please try again!")
             choice_index = self.restrict_input_int(f"What's your choice?")
         self.choice = self.choices[choice_index]
